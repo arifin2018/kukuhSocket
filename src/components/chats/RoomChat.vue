@@ -1,7 +1,3 @@
-<script>
-import 'boxicons'
-</script>
-
 <template>
     <header class="border-b-2 border-black pb-2 p-3">
         Chat from Chrome incognito
@@ -36,5 +32,17 @@ import 'boxicons'
         </div>
     </footer>
 </template>
+
+<script>
+    import 'boxicons'
+
+    export default{
+        data() {
+            return {
+                name:"arifin"
+            }
+        },
+    }
+</script>
 
 <style></style>
