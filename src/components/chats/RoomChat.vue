@@ -1,18 +1,19 @@
 <template>
     <header class="border-b-2 border-black pb-2 p-3">
         Chat from Chrome incognito
+        {{ messageRooms }}
     </header>
     <div class="flex flex-col w-full relative h-[95%]">
         <div class="absolute overflow-y-auto max-h-full w-full flex flex-col">
             <div :class="[
                 'my-3 mx-2 max-w-full text-right',
-                isSelf(conversation.from.id) ? 'justify-end' : 'justify-start'
-            ]"  v-for="(conversation,id) in conversations[messageRooms] || []" :key="id">
+                isSelf(conversatio.from.id) ? 'justify-end' : 'justify-start'
+            ]"  v-for="(conversatio,index) in conversation[messageRooms] || []" :key="index">
                 <div :class="[
                     'max-w-6xl px-3 pt-2 rounded-lg',
-                    isSelf(conversation.from.id) ? 'float-end bg-[#37bb4f] ' : 'float-start bg-[#a7a7aa]'
+                    isSelf(conversatio.from.id) ? 'float-end bg-[#37bb4f] ' : 'float-start bg-[#a7a7aa]'
                 ]">
-                    <div>{{ conversation.text }}</div>
+                    <div>{{ conversatio.text }}</div>
                     <div class="flex text-right float-end">
                         <p class="text-gray-600 text-sm p-1">08:00</p>
                         <box-icon color="blue" name='check-double'></box-icon>
@@ -38,7 +39,7 @@
         props:{
             onSendMessage: Function,
             onChangeText: Function,
-            conversations: Object,
+            conversation: Object,
             messageRooms: String,
             text: String
         },
@@ -48,7 +49,7 @@
             }
         },
         computed: {
-            isSelf(){
+            isSelf: function(){
                 return (id) => {
                     let raw = localStorage.getItem("userChat")
                     if (raw) {
@@ -56,7 +57,11 @@
                         return me.id === id 
                     }
                 }
-            }
+            },
+            
+        },
+        watch:{
+            
         }
     }
 </script>

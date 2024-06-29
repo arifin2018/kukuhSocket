@@ -40,6 +40,7 @@
                     let room = [
                         user.id, me.id
                     ].sort().join("&")
+                    this.messageRoom = room
                     if (this.conversation["room"]) {
                         this.conversation["room"] = this.conversation["room"].map(item => {
                             return {
@@ -154,8 +155,9 @@
                 this.isRegistered = true
             }
             socket.on("PRIVATE_MESSAGE",data => {
-                console.log("data");
+                console.log("data" + data.from.id + "   conver id" + this.activeConversation.id );
                 console.log(data);
+
                 const fromActive = this.activeConversation.id === data.from.id
                 const dataWithStatusUpdate = fromActive ? {
                     ...data,
@@ -166,6 +168,8 @@
                 }else{
                     this.conversation[data.room] = [dataWithStatusUpdate]
                 }
+                console.log("this.conversation");
+                console.log(this.conversation);
             })
         },
     }
@@ -178,7 +182,7 @@
             <ListChat :availableUser="availableUser" :onClickUser="onClickUser"/>
         </h1>
         <h1 class="h-full w-screen" v-if="activeConversation">
-            <RoomChat :onSendMessage="onSendMessage" :onChangeText="onChangeText" :conversations="conversation" :messageRooms="messageRoom" :text="text"/>
+            <RoomChat :onSendMessage="onSendMessage" :onChangeText="onChangeText" :conversation="conversation" :messageRooms="messageRoom" :text="text"/>
         </h1>
     </section>
 </template>
