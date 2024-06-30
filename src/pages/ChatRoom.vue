@@ -33,13 +33,11 @@
             onClickUser(user){
                 let raw = localStorage.getItem("userChat")
                 this.activeConversation = user
-                console.log("this.activeConversation");
-                console.log(this.activeConversation);
                 if (raw) {
                     const me = JSON.parse(raw)
                     let room = [
                         user.id, me.id
-                    ].sort().join("&")
+                    ].join("&")
                     this.messageRoom = room
                     if (this.conversation["room"]) {
                         this.conversation["room"] = this.conversation["room"].map(item => {
@@ -50,60 +48,6 @@
                         }) 
                     }
                 }
-                /**
-                 * windows 1
-                 * {
-                 * "nama":"awd",
-                 * "room":"awdad-1213",
-                 * "read":true
-                 * },
-                 * {
-                 * "nama":"awd2",
-                 * "room":"awdad-1213",
-                 * "read":false
-                 * },
-                 * {
-                 * "nama":"awd3",
-                 * "room":"awdad-1213",
-                 * "read":false
-                 * },
-                 * 
-                 * windows 2
-                 * {
-                 * "nama":"awd",
-                 * "room":"awdad-1213",
-                 * "read":false
-                 * },
-                 * {
-                 * "nama":"awd2",
-                 * "room":"awdad-1213",
-                 * "read":true
-                 * },
-                 * {
-                 * "nama":"awd3",
-                 * "room":"awdad-1213",
-                 * "read":false
-                 * },
-                 * 
-                 * windows 3
-                 * {
-                 * "nama":"awd",
-                 * "room":"awdad-1213",
-                 * "read":false
-                 * },
-                 * {
-                 * "nama":"awd2",
-                 * "room":"awdad-1213",
-                 * "read":false
-                 * },
-                 * {
-                 * "nama":"awd3",
-                 * "room":"awdad-1213",
-                 * "read":true
-                 * },
-                 * 
-                 * 
-                 */
             },
             onSendMessage(){
                 if (this.text) {
@@ -155,7 +99,7 @@
                 this.isRegistered = true
             }
             socket.on("PRIVATE_MESSAGE",data => {
-                console.log("data" + data.from.id + "   conver id" + this.activeConversation.id );
+                console.log("data " + data.from.id + "   conver id " + this.activeConversation.id );
                 console.log(data);
 
                 const fromActive = this.activeConversation.id === data.from.id

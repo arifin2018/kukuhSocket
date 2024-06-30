@@ -1,7 +1,6 @@
 <template>
     <header class="border-b-2 border-black pb-2 p-3">
-        Chat from Chrome incognito
-        {{ messageRooms }}
+        Chat from {{ interculoterId }}
     </header>
     <div class="flex flex-col w-full relative h-[95%]">
         <div class="absolute overflow-y-auto max-h-full w-full flex flex-col">
@@ -45,7 +44,8 @@
         },
         data() {
             return {
-                name:"arifin"
+                meId:"",
+                interculoterId: ""
             }
         },
         computed: {
@@ -58,10 +58,22 @@
                     }
                 }
             },
-            
+        },
+        methods: {
+            splitDataMessageRoom(dataMessageRooms){
+                console.log(dataMessageRooms);
+                const myArray = dataMessageRooms.split("&");
+                this.meId = myArray[1]
+                this.interculoterId = myArray[0] 
+            }
+        },
+        mounted() {
+            this.splitDataMessageRoom(this.messageRooms)
         },
         watch:{
-            
+            messageRooms: function(newVal, oldVal) { // watch it
+                this.splitDataMessageRoom(newVal)
+            }
         }
     }
 </script>
